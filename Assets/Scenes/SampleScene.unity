@@ -195,7 +195,7 @@ Transform:
   - {fileID: 1244724375}
   - {fileID: 1926936117}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
@@ -288,6 +288,7 @@ GameObject:
   - component: {fileID: 1408831511}
   - component: {fileID: 1408831515}
   - component: {fileID: 1408831516}
+  - component: {fileID: 1408831517}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Player
@@ -303,7 +304,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1408831510}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 8034c50bc57aa7046833ba33fa4bad53, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -339,7 +340,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 1
+  m_Constraints: 4
 --- !u!212 &1408831513
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -396,7 +397,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &1408831515
 CircleCollider2D:
@@ -407,12 +408,12 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0043430626, y: -0.2395759}
+  m_Offset: {x: -0.0043430626, y: -0.2549005}
   serializedVersion: 2
-  m_Radius: 0.1725699
+  m_Radius: 0.1878945
 --- !u!95 &1408831516
 Animator:
   serializedVersion: 3
@@ -431,6 +432,41 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1408831517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1408831510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d5bf67b0030f63439c20bfe2c097770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  accelerationForce: 75
+  jumpForce: 7
+  maxSpeed: 10
+  rb2d: {fileID: 1408831512}
+  playerGroundCollider: {fileID: 1408831511}
+  playerMovingPhysicsMaterial: {fileID: 6200000, guid: 99167365da166a9498ee15b39eecdecf,
+    type: 2}
+  playerStoppingPhysicsMaterial: {fileID: 6200000, guid: 8034c50bc57aa7046833ba33fa4bad53,
+    type: 2}
+  groundDetectTrigger: {fileID: 1408831515}
+  groundContactFilter:
+    useTriggers: 0
+    useLayerMask: 1
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 256
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
 --- !u!1 &1926936116
 GameObject:
   m_ObjectHideFlags: 0
