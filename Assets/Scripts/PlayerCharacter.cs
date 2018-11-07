@@ -68,13 +68,12 @@ public class PlayerCharacter : MonoBehaviour {
         UpdatePhysicsMaterial();
         Move();
         float move = Input.GetAxis("Horizontal");
+        anim.SetFloat("speed", Mathf.Abs(move));
         if (move > 0 && !facingRight)
             Flip();
         else if (move < 0 && facingRight)
             Flip();
 
-        //if (isOnGround)
-        //    doubleJump = false;
     }
 
     private void UpdatePhysicsMaterial()
@@ -106,6 +105,8 @@ public class PlayerCharacter : MonoBehaviour {
         {
             rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
+        //if (isOnGround)
+        //    doubleJump = false;
     }
 
     private void Move()
