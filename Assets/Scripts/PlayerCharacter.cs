@@ -67,6 +67,7 @@ public class PlayerCharacter : MonoBehaviour {
     {
         UpdatePhysicsMaterial();
         Move();
+        anim.SetFloat("vSpeed", rb2d.velocity.y);
         float move = Input.GetAxis("Horizontal");
         anim.SetFloat("speed", Mathf.Abs(move));
         if (move > 0 && !facingRight)
