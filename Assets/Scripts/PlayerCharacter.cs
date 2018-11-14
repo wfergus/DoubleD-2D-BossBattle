@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerCharacter : MonoBehaviour {
 
@@ -37,7 +38,7 @@ public class PlayerCharacter : MonoBehaviour {
     private bool isOnGround;
     private Collider2D[] groundHitDetectionResults = new Collider2D[16];
     //public LayerMask whatIsGround;
-    //private Checkpoint currentCheckpoint;
+    private Checkpoint currentCheckpoint;
 
     void Start()
     {
@@ -67,7 +68,7 @@ public class PlayerCharacter : MonoBehaviour {
     {
         UpdatePhysicsMaterial();
         Move();
-        anim.SetFloat("vSpeed", rb2d.velocity.y);
+        anim.SetFloat("vSpeed", Mathf.Abs(rb2d.velocity.y));
         float move = Input.GetAxis("Horizontal");
         anim.SetFloat("speed", Mathf.Abs(move));
         if (move > 0 && !facingRight)
@@ -125,25 +126,25 @@ public class PlayerCharacter : MonoBehaviour {
         transform.localScale = theScale;
     }
 
-    //public void Respawn()
-    //{
-    //    if (currentCheckpoint == null)
-    //        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    //    else
-    //    {
-    //        rb2d.velocity = Vector2.zero;
-    //        transform.position = currentCheckpoint.transform.position;
-    //    }
-    //}
+    public void Respawn()
+    {
+        if (currentCheckpoint == null)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        else
+        {
+            rb2d.velocity = Vector2.zero;
+            transform.position = currentCheckpoint.transform.position;
+        }
+    }
 
-    //public void SetCurrentCheckpoint(Checkpoint newCurrentCheckpoint)
-    //{
-    //    if (currentCheckpoint != null)
-    //        currentCheckpoint.SetIsActivated(false);
+    public void SetCurrentCheckpoint(Checkpoint newCurrentCheckpoint)
+    {
+        if (currentCheckpoint != null)
+            currentCheckpoint.SetIsActivated(false);
 
-    //    currentCheckpoint = newCurrentCheckpoint;
-    //    currentCheckpoint.SetIsActivated(true);
-    //}
+        currentCheckpoint = newCurrentCheckpoint;
+        currentCheckpoint.SetIsActivated(true);
+    }
     //void OnTriggerEnter2D(Collider2D other)
     //{
     //    if (other.gameObject.CompareTag("PickUp"))
