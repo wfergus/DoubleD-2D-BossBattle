@@ -15,7 +15,7 @@ TagManager:
   - 
   - 
   - Platform
-  - 
+  - Chceckpoint
   - 
   - 
   - 
@@ -44,4 +44,10 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Checkpoint
+    uniqueID: 418124639
+    locked: 0
+  - name: Player
+    uniqueID: 1180425115
     locked: 0
