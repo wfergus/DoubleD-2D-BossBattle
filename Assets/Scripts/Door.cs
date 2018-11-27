@@ -5,19 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class Door : MonoBehaviour
 {
-    //private void OnTriggerStay2D(Collider2D collision)
-    //{
-    //    if (collision.CompareTag("Player"))
-    //    {
-    //        if(Input.GetButtonDown("Activate"))
-    //        {
+	private void OnTriggerStay2D(Collider2D collision)
+	{
+		if (collision.CompareTag("Player"))
+		{
+			if (Input.GetButtonDown("Activate"))
+			{
 
-    //        Debug.Log("player has door activated");
-    //        }
-    //    }
-    //}
-    [SerializeField]
-    private string sceneToLoad;
+				Debug.Log("player has door activated");
+			}
+		}
+	}
+
+	public string sceneToLoad;
     private bool isPlayerInTrigger;
     private void OnTriggerEnter2D(Collider2D collision)
     {

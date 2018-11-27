@@ -5,30 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class PlayerCharacter : MonoBehaviour {
 
+public float accelerationForce = 5f;
 
-    [SerializeField]
-    private float accelerationForce = 5f;
+	public float jumpForce = 5f;
 
-    [SerializeField]
-    private float jumpForce = 5f;
+    public float maxSpeed = 5f;
 
-    [SerializeField]
-    private float maxSpeed = 5f;
+    public Rigidbody2D rb2d;
 
-    [SerializeField]
-    private Rigidbody2D rb2d;
+    public Collider2D playerGroundCollider;
 
-    [SerializeField]
-    private Collider2D playerGroundCollider;
+    public PhysicsMaterial2D playerMovingPhysicsMaterial, playerStoppingPhysicsMaterial;
 
-    [SerializeField]
-    private PhysicsMaterial2D playerMovingPhysicsMaterial, playerStoppingPhysicsMaterial;
+    public Collider2D groundDetectTrigger;
 
-    [SerializeField]
-    private Collider2D groundDetectTrigger;
-
-    [SerializeField]
-    private ContactFilter2D groundContactFilter;
+   public ContactFilter2D groundContactFilter;
 
     Animator anim;
 
