@@ -35,13 +35,11 @@ public class PlayerCharacter : MonoBehaviour {
     float groundRadius = 0.2f;
     public LayerMask whatIsGround;
 
-    //private bool doubleJump = false;
     private bool facingRight = true;
     private float horizontalInput;
     private bool isOnGround;
     private bool isUnderGround = false;
     private Collider2D[] groundHitDetectionResults = new Collider2D[16];
-    //public LayerMask whatIsGround;
     private Checkpoint currentCheckpoint;
 
 
@@ -53,7 +51,6 @@ public class PlayerCharacter : MonoBehaviour {
 
     void Update()
     {
-        //UpdateIsOnGround();
         UpdateHorizontalInput();
         HandleJumpInput();
         //winText.text = "";
@@ -104,11 +101,6 @@ public class PlayerCharacter : MonoBehaviour {
         horizontalInput = Input.GetAxisRaw("Horizontal");
     }
 
-    //private void UpdateIsOnGround()
-    //{
-    //    isOnGround = groundDetectTrigger.OverlapCollider(groundContactFilter, groundHitDetectionResults) > 0;
-    //    // Debug.Log("IsOnGround?: " + isOnGround);
-    //}
     private void HandleUnderReflectInput()
     {
         if (Input.GetButtonDown("Reflect Down") && isOnGround && !isUnderGround)
@@ -121,7 +113,7 @@ public class PlayerCharacter : MonoBehaviour {
     }
     private void HandleOverReflectInput()
     {
-        if (Input.GetButtonDown("Reflect Up") /*&& isOnGround && isUnderGround*/)
+        if (Input.GetButtonDown("Reflect Up"))
         {
             rb2d.transform.Rotate(0, 180, 180);
             rb2d.gravityScale = 1;
@@ -135,8 +127,6 @@ public class PlayerCharacter : MonoBehaviour {
         {
             rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
-        //if (isOnGround)
-        //    doubleJump = false;
     }
 
     private void Move()
