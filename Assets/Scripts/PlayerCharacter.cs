@@ -5,31 +5,45 @@ using UnityEngine.SceneManagement;
 
 public class PlayerCharacter : MonoBehaviour {
 
-public float accelerationForce = 5f;
+    [SerializeField]
+    private float accelerationForce = 5f;
 
-	public float jumpForce = 5f;
+    [SerializeField]
+    private float jumpForce = 5f;
 
-    public float maxSpeed = 5f;
+    [SerializeField]
+    private float maxSpeed = 5f;
 
-    public Rigidbody2D rb2d;
+    [SerializeField]
+    private Rigidbody2D rb2d;
 
-    public Collider2D playerGroundCollider;
+    [SerializeField]
+    private Collider2D playerGroundCollider;
 
-    public PhysicsMaterial2D playerMovingPhysicsMaterial, playerStoppingPhysicsMaterial;
+    [SerializeField]
+    private PhysicsMaterial2D playerMovingPhysicsMaterial, playerStoppingPhysicsMaterial;
 
-    public Collider2D groundDetectTrigger;
+    [SerializeField]
+    private Collider2D groundDetectTrigger;
 
-   public ContactFilter2D groundContactFilter;
+    [SerializeField]
+    private ContactFilter2D groundContactFilter;
 
     Animator anim;
+
+    public Transform groundCheck;
+    float groundRadius = 0.2f;
+    public LayerMask whatIsGround;
 
     //private bool doubleJump = false;
     private bool facingRight = true;
     private float horizontalInput;
     private bool isOnGround;
+    private bool isUnderGround = false;
     private Collider2D[] groundHitDetectionResults = new Collider2D[16];
     //public LayerMask whatIsGround;
     private Checkpoint currentCheckpoint;
+
 
     void Start()
     {
@@ -39,7 +53,7 @@ public float accelerationForce = 5f;
 
     void Update()
     {
-        UpdateIsOnGround();
+        //UpdateIsOnGround();
         UpdateHorizontalInput();
         HandleJumpInput();
         //winText.text = "";
@@ -59,9 +73,13 @@ public float accelerationForce = 5f;
     {
         UpdatePhysicsMaterial();
         Move();
+        isOnGround = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
+        HandleUnderReflectInput();
+        HandleOverReflectInput();
         anim.SetFloat("vSpeed", Mathf.Abs(rb2d.velocity.y));
         float move = Input.GetAxis("Horizontal");
         anim.SetFloat("speed", Mathf.Abs(move));
+
         if (move > 0 && !facingRight)
             Flip();
         else if (move < 0 && facingRight)
@@ -86,10 +104,29 @@ public float accelerationForce = 5f;
         horizontalInput = Input.GetAxisRaw("Horizontal");
     }
 
-    private void UpdateIsOnGround()
+    //private void UpdateIsOnGround()
+    //{
+    //    isOnGround = groundDetectTrigger.OverlapCollider(groundContactFilter, groundHitDetectionResults) > 0;
+    //    // Debug.Log("IsOnGround?: " + isOnGround);
+    //}
+    private void HandleUnderReflectInput()
     {
-        isOnGround = groundDetectTrigger.OverlapCollider(groundContactFilter, groundHitDetectionResults) > 0;
-        // Debug.Log("IsOnGround?: " + isOnGround);
+        if (Input.GetButtonDown("Reflect Down") && isOnGround && !isUnderGround)
+        {
+            
+            rb2d.transform.Rotate(0, 180, 180);
+            rb2d.gravityScale = -1;
+            isUnderGround = true;
+        }
+    }
+    private void HandleOverReflectInput()
+    {
+        if (Input.GetButtonDown("Reflect Up") /*&& isOnGround && isUnderGround*/)
+        {
+            rb2d.transform.Rotate(0, 180, 180);
+            rb2d.gravityScale = 1;
+            isUnderGround = false;
+        }
     }
 
     private void HandleJumpInput()
