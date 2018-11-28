@@ -8,7 +8,7 @@ public class Checkpoint : MonoBehaviour
 {
 
     [SerializeField]
-    private float inactivatedRotationSpeed = 100, activatedRotationSpeed = 0;
+    private float inactivatedRotationSpeed = 100, activatedRotationSpeed = 0, inactiveScalePulseSpeed = 100, activatedScalePulseSpeed = 0;
 
     [SerializeField]
     private float inactivatedScale = 1, activatedScale = 1.5f;
@@ -20,6 +20,28 @@ public class Checkpoint : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private AudioSource audioSource;
 
+
+
+    /// <summary>
+    /// //
+    /// </summary>
+    [SerializeField]
+    private float approachSpeed = 0.02f;
+    [SerializeField]
+    private float growthBound = 2f;
+    [SerializeField]
+    private float shrinkBound = 0.5f;
+    private float currentRatio = 1;
+
+   
+    private float originalSpriteSize;
+
+
+    private Coroutine routine;
+    private bool keepGoing = true;
+    private bool closeEnough = false;
+  
+   
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -29,6 +51,7 @@ public class Checkpoint : MonoBehaviour
     private void Update()
     {
         UpdateRotation();
+      
     }
 
     private void UpdateRotation()
@@ -38,6 +61,14 @@ public class Checkpoint : MonoBehaviour
             rotationSpeed = activatedRotationSpeed;
 
         transform.Rotate(Vector3.down * rotationSpeed * Time.deltaTime);
+
+    }
+    public void UpdateScalePulse()
+    {
+        float scalePulseSpeed = inactiveScalePulseSpeed;
+        if (isActivated)
+            scalePulseSpeed = activatedScalePulseSpeed;
+
 
     }
     private void UpDateScale()

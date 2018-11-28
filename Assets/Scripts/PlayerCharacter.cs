@@ -136,15 +136,15 @@ public float accelerationForce = 5f;
         currentCheckpoint = newCurrentCheckpoint;
         currentCheckpoint.SetIsActivated(true);
     }
-    //void OnTriggerEnter2D(Collider2D other)
-    //{
-    //    if (other.gameObject.CompareTag("PickUp"))
-    //    {
-    //        other.gameObject.SetActive(false);
-    //        count = count + 1;
-    //        SetCountText();
-    //    }
-    //}
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Pickup"))
+        {
+            other.gameObject.SetActive(false);
+            //count = count + 1;
+            //SetCountText();
+        }
+    }
     //void SetCountText()
     //{
     //    countText.text = "Count: " + count.ToString();
