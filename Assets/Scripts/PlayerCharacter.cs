@@ -55,15 +55,6 @@ public class PlayerCharacter : MonoBehaviour {
         HandleJumpInput();
         //winText.text = "";
         //SetCountText();
-
-        //if ((isOnGround || !doubleJump) && Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    anim.SetBool("Ground", false);
-        //    rb2d.AddForce(new Vector2(0, jumpForce));
-
-        //    if (!doubleJump && !isOnGround)
-        //        doubleJump = true;
-        //}
     }
 
     private void FixedUpdate()
@@ -167,6 +158,7 @@ public class PlayerCharacter : MonoBehaviour {
     {
         if (other.gameObject.CompareTag("Pickup"))
         {
+      
             other.gameObject.SetActive(false);
             //count = count + 1;
             //SetCountText();

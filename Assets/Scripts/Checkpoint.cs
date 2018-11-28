@@ -18,20 +18,7 @@ public class Checkpoint : MonoBehaviour
 
     private bool isActivated;
     private SpriteRenderer spriteRenderer;
-    private AudioSource audioSource;
 
-
-
-    /// <summary>
-    /// //
-    /// </summary>
-    [SerializeField]
-    private float approachSpeed = 0.02f;
-    [SerializeField]
-    private float growthBound = 2f;
-    [SerializeField]
-    private float shrinkBound = 0.5f;
-    private float currentRatio = 1;
 
    
     private float originalSpriteSize;
@@ -45,7 +32,6 @@ public class Checkpoint : MonoBehaviour
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        audioSource = GetComponent<AudioSource>();
         UpdateColor();
     }
     private void Update()
@@ -100,7 +86,6 @@ public class Checkpoint : MonoBehaviour
             Debug.Log("Player entered Checkpoint.");
             PlayerCharacter player = collision.GetComponent<PlayerCharacter>();
             player.SetCurrentCheckpoint(this);
-            audioSource.Play();
         }
     }
 }

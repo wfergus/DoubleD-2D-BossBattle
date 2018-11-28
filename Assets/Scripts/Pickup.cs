@@ -16,50 +16,49 @@ public class Pickup : MonoBehaviour {
 
     private SpriteRenderer spriteRenderer;
     private float originalSpriteSize;
-
+    private AudioSource audioSource;
 
     private Coroutine routine;
     private bool keepGoing = true;
     private bool closeEnough = false;
+
  
     void Awake()
     {
-        // Find the text  element we want to use
         this.spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
-
-        // Then start the routine
         this.routine = StartCoroutine(this.Pulse());
+    }
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
     IEnumerator Pulse()
     {
-        // Run this indefinitely
         while (keepGoing)
         {
-            // Get bigger for a few seconds
             while (this.currentRatio != this.growthBound)
             {
-                // Determine the new ratio to use
                 currentRatio = Mathf.MoveTowards(currentRatio, growthBound, approachSpeed);
-
-                // Update our text element
                 this.spriteRenderer.transform.localScale = Vector3.one * currentRatio;
-
-
                 yield return new WaitForEndOfFrame();
             }
 
-            // Shrink for a few seconds
             while (this.currentRatio != this.shrinkBound)
             {
-                // Determine the new ratio to use
                 currentRatio = Mathf.MoveTowards(currentRatio, shrinkBound, approachSpeed);
-
-                // Update our text element
                 this.spriteRenderer.transform.localScale = Vector3.one * currentRatio;
-
 
                 yield return new WaitForEndOfFrame();
             }
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            Debug.Log("whers the sound?");
+            audioSource.Play();
         }
     }
 }
