@@ -29,7 +29,7 @@ public class PlayerCharacter : MonoBehaviour {
     [SerializeField]
     private ContactFilter2D groundContactFilter, ceilingContactFilter;
 
-    Animator anim;
+    public Animator anim;
 
     public Transform groundCheck;
     float groundRadius = 0.2f;
@@ -50,6 +50,7 @@ public class PlayerCharacter : MonoBehaviour {
         anim = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
+        anim.GetBool("isDead");
     }
 
     void Update()
@@ -62,6 +63,7 @@ public class PlayerCharacter : MonoBehaviour {
 
     private void FixedUpdate()
     {
+        
         UpdatePhysicsMaterial();
         Move();
         isOnGround = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
@@ -150,7 +152,6 @@ public class PlayerCharacter : MonoBehaviour {
             transform.position = currentCheckpoint.transform.position;
         }
     }
-
     public void SetCurrentCheckpoint(Checkpoint newCurrentCheckpoint)
     {
         if (currentCheckpoint != null)
