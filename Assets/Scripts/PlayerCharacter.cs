@@ -144,6 +144,8 @@ public class PlayerCharacter : MonoBehaviour {
 
     public void Respawn()
     {
+        
+        if(Input.anyKeyDown)
         if (currentCheckpoint == null)
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         else
@@ -152,6 +154,11 @@ public class PlayerCharacter : MonoBehaviour {
             transform.position = currentCheckpoint.transform.position;
         }
     }
+    public void KillPlayer()
+    {
+        anim.SetBool("isDead", true);
+    }
+
     public void SetCurrentCheckpoint(Checkpoint newCurrentCheckpoint)
     {
         if (currentCheckpoint != null)
