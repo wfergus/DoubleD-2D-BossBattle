@@ -12,8 +12,7 @@ public class Hazard : MonoBehaviour
             Debug.Log("Player entered hazard.");
             //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             PlayerCharacter player = collision.GetComponent<PlayerCharacter>();
-            player.anim.SetBool("isDead", true);
-            player.Respawn();
+            player.KillPlayer();
             
         }
         else

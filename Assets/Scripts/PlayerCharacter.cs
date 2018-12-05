@@ -57,6 +57,11 @@ public class PlayerCharacter : MonoBehaviour {
     {
         UpdateHorizontalInput();
         HandleJumpInput();
+    if (Input.GetKeyDown(KeyCode.R))
+            {
+            Respawn();
+            anim.SetBool("isDead", false);
+            }
         //winText.text = "";
         //SetCountText();
     }
@@ -141,8 +146,7 @@ public class PlayerCharacter : MonoBehaviour {
         theScale.x *= -1;
         transform.localScale = theScale;
     }
-
-    public void Respawn()
+public void Respawn()
     {
         
         if(Input.anyKeyDown)
