@@ -27,26 +27,29 @@ public class PlayerCharacter : MonoBehaviour {
     private Collider2D groundDetectTrigger;
 
     [SerializeField]
-    private ContactFilter2D groundContactFilter;
+    private ContactFilter2D groundContactFilter, ceilingContactFilter;
 
     Animator anim;
 
     public Transform groundCheck;
     float groundRadius = 0.2f;
     public LayerMask whatIsGround;
+    public LayerMask whatIsCeiling;
 
     private bool facingRight = true;
     private float horizontalInput;
     private bool isOnGround;
-    private bool isUnderGround = false;
+    private bool isOnCeiling = false;
     private Collider2D[] groundHitDetectionResults = new Collider2D[16];
     private Checkpoint currentCheckpoint;
 
+    private AudioSource audioSource;
 
     void Start()
     {
         anim = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -94,21 +97,23 @@ public class PlayerCharacter : MonoBehaviour {
 
     private void HandleUnderReflectInput()
     {
-        if (Input.GetButtonDown("Reflect Down") && isOnGround && !isUnderGround)
+        if (Input.GetButtonDown("Reflect Up") && isOnGround)
         {
             
             rb2d.transform.Rotate(0, 180, 180);
             rb2d.gravityScale = -1;
-            isUnderGround = true;
+            isOnGround = false;
+            isOnCeiling = true;
         }
     }
     private void HandleOverReflectInput()
     {
-        if (Input.GetButtonDown("Reflect Up"))
+        if (Input.GetButtonDown("Reflect Down") && isOnCeiling)
         {
             rb2d.transform.Rotate(0, 180, 180);
             rb2d.gravityScale = 1;
-            isUnderGround = false;
+            isOnGround = true;
+            isOnCeiling = false;
         }
     }
 
@@ -158,8 +163,9 @@ public class PlayerCharacter : MonoBehaviour {
     {
         if (other.gameObject.CompareTag("Pickup"))
         {
-      
             other.gameObject.SetActive(false);
+            audioSource.Play();
+
             //count = count + 1;
             //SetCountText();
         }

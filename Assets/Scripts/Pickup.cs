@@ -16,7 +16,7 @@ public class Pickup : MonoBehaviour {
 
     private SpriteRenderer spriteRenderer;
     private float originalSpriteSize;
-    private AudioSource audioSource;
+    
 
     private Coroutine routine;
     private bool keepGoing = true;
@@ -30,7 +30,6 @@ public class Pickup : MonoBehaviour {
     }
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
     IEnumerator Pulse()
@@ -57,8 +56,7 @@ public class Pickup : MonoBehaviour {
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("whers the sound?");
-            audioSource.Play();
+          
         }
     }
 }

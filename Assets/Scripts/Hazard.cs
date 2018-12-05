@@ -19,5 +19,4 @@ public class Hazard : MonoBehaviour
             Debug.Log("non-player has entered the hazard");
         }
     }
-
 }
