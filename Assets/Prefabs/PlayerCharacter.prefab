@@ -55,7 +55,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1045151668026006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.86, y: 1.59, z: -0.038022608}
+  m_LocalPosition: {x: -12.89389, y: -2.485214, z: -0.038022608}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4731602251534790}
@@ -295,6 +295,7 @@ MonoBehaviour:
   whatIsCeiling:
     serializedVersion: 2
     m_Bits: 1024
+  isDead: 0
 --- !u!212 &212436338757992522
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -37,6 +37,7 @@ public class PlayerCharacter : MonoBehaviour {
     public LayerMask whatIsCeiling;
 
     private bool facingRight = true;
+    public bool isDead = false;
     private float horizontalInput;
     private bool isOnGround;
     private bool isOnCeiling = false;
@@ -50,18 +51,16 @@ public class PlayerCharacter : MonoBehaviour {
         anim = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
-        anim.GetBool("isDead");
     }
 
     void Update()
     {
         UpdateHorizontalInput();
         HandleJumpInput();
-    if (Input.GetKeyDown(KeyCode.R))
-            {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
             Respawn();
-            anim.SetBool("isDead", false);
-            }
+        }
         //winText.text = "";
         //SetCountText();
     }
@@ -70,19 +69,27 @@ public class PlayerCharacter : MonoBehaviour {
     {
         
         UpdatePhysicsMaterial();
+        if (!isDead)
+        {
         Move();
-        isOnGround = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
         HandleUnderReflectInput();
         HandleOverReflectInput();
+        isOnGround = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
         anim.SetFloat("vSpeed", Mathf.Abs(rb2d.velocity.y));
         float move = Input.GetAxis("Horizontal");
         anim.SetFloat("speed", Mathf.Abs(move));
 
-        if (move > 0 && !facingRight)
-            Flip();
-        else if (move < 0 && facingRight)
-            Flip();
-
+            if (move > 0 && !facingRight)
+                Flip();
+            else if (move < 0 && facingRight)
+                Flip();
+        }
+        if (isDead)
+        {
+            anim.SetBool("isDead", true);
+            anim.SetFloat("vSpeed", 0);
+            anim.SetFloat("speed", 0);
+        }
     }
 
     private void UpdatePhysicsMaterial()
@@ -146,21 +153,35 @@ public class PlayerCharacter : MonoBehaviour {
         theScale.x *= -1;
         transform.localScale = theScale;
     }
-public void Respawn()
+    public void Respawn()
     {
-        
-        if(Input.anyKeyDown)
+
+            isDead = false;
+            rb2d.gravityScale = 1;
+            anim.SetBool("isDead", false);
+        anim.SetFloat("vSpeed", 0);
+        anim.SetFloat("speed", 0);
+
         if (currentCheckpoint == null)
+        {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+           
+        }
         else
         {
             rb2d.velocity = Vector2.zero;
             transform.position = currentCheckpoint.transform.position;
         }
+        Debug.Log("respwaned");
     }
     public void KillPlayer()
     {
         anim.SetBool("isDead", true);
+        anim.SetFloat("vSpeed", 0);
+        anim.SetFloat("speed", 0);
+        isDead = true;
+        Debug.Log("is fucking dead");
+
     }
 
     public void SetCurrentCheckpoint(Checkpoint newCurrentCheckpoint)

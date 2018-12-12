@@ -25,8 +25,8 @@ public class Checkpoint : MonoBehaviour
 
 
     private Coroutine routine;
-    private bool keepGoing = true;
-    private bool closeEnough = false;
+    //private bool keepGoing = true;
+    //private bool closeEnough = false;
   
    
     private void Start()
@@ -86,6 +86,7 @@ public class Checkpoint : MonoBehaviour
             Debug.Log("Player entered Checkpoint.");
             PlayerCharacter player = collision.GetComponent<PlayerCharacter>();
             player.SetCurrentCheckpoint(this);
+            player.isDead = false;
         }
     }
 }
